@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="script/script.js" async></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="contacts">
+            <div class="contacts__heading">
+                <div class="heading__name name">Name</div>
+                <div class="heading__phone phone">Phone</div>
+                <div class="heading__email email">E-mail</div>
+                
+                <div class="heading__actions actions">Actions</div>
+            </div>
+
+            <div id="listContacts" class="contacts__list list">
+
+                
+            </div>
+
+            <form id="contactForm" class="contacts__adder">
+                <div class="adder__name name">
+                    <input id="adderName" type="text" placeholder="Your Name">
+                </div>
+
+                <div class="adder__phone phone">
+                    <input id="adderPhone" type="tel" placeholder="Your Phone">
+                </div>
+
+                <div class="adder__email email">
+                    <input id="adderEmail" type="email" placeholder="Your E-mail">
+                </div>
+
+                <div class="adder__actions actions">
+                    <input id="adderBtn" type="submit" class="btn" value="add">
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script id="contactTemplate" type=text/template> 
+        <div class="list__item item" data-id="{{id}}">
+
+            <div class="item__name name">{{name}}</div>
+
+            <div class="item__phone phone">{{phone}}</div>
+
+            <div class="item__email phone">{{email}}</div>
+            
+            <div class="item__btn actions">
+                <button class="btn delete__btn">delete</button>
+            </div>
+        </div>
+    </script>
+</body>
+
+</html>

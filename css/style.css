@@ -1,0 +1,107 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.container {
+  height: 100vh;
+  background-image: linear-gradient(#4ac6f7, #0c038d);
+}
+
+.contacts {
+  background-color: #fceb58;
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: center;
+}
+.contacts__heading {
+  display: flex;
+  justify-content: space-between;
+  background-color: #73b412;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 20px;
+  color: #304e02;
+  box-shadow: 0 1px 0px 1px #304e02;
+  text-shadow: 2px 1px 1px #fceb58;
+}
+.contacts__adder {
+  display: flex;
+  justify-content: space-between;
+  background-color: #adaf13;
+}
+
+.list {
+  display: flex;
+  flex-flow: column nowrap;
+  font-style: italic;
+  color: #2b0520;
+}
+.list__item {
+  display: flex;
+  justify-content: space-between;
+}
+.list__item:nth-child(even) {
+  background-color: greenyellow;
+}
+
+/*common*/
+.name {
+  padding: 10px;
+  width: 25%;
+  border-right: 5px solid #fceb58;
+}
+
+.email {
+  padding: 10px;
+  width: 25%;
+  border-right: 5px solid #fceb58;
+}
+
+.phone {
+  padding: 10px;
+  width: 25%;
+  border-right: 5px solid #fceb58;
+}
+
+.actions {
+  padding: 10px;
+  width: 25%;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #d84400;
+  box-shadow: 0 0 2px 1px #d84400;
+}
+input::placeholder {
+  font-size: 12px;
+}
+input:focus {
+  outline: none;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 0 20px;
+  line-height: 30px;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 2px;
+  background-color: yellowgreen;
+  border-radius: 5px;
+  border: none;
+  color: #e25300;
+  text-shadow: 2px 1px 1px #000;
+  box-shadow: inset 0 0 2px 2px #d84400;
+}
+.btn:hover {
+  background-color: #e25300;
+  transition: all 150ms;
+}
+
+/*# sourceMappingURL=style.css.map */
