@@ -4,14 +4,17 @@ const CONTACTS_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/users/';
 
 const LIST_ITEM_CLASS = 'list__item';
 const DELETE_BTN_CLASS = 'delete__btn';
+const EDIT_BTN_CLASS = 'edit__btn';
+
 
 
 const contactTemplate = document.querySelector('#contactTemplate').innerHTML;
 const listContacts = document.querySelector('#listContacts');
 const contactForm = document.querySelector('#contactForm');
-const newName = document.querySelector('#adderName');
-const newPhone = document.querySelector('#adderPhone');
-const newEmail = document.querySelector('#adderEmail');
+const nameInput = document.querySelector('#adderName');
+const phoneInput = document.querySelector('#adderPhone');
+const emailInput = document.querySelector('#adderEmail');
+const idInput = document.querySelector('#idContactInput');
 
 
 let contacts = [];
@@ -27,18 +30,21 @@ function onContactSubmit(e) {
     e.preventDefault();
 
     submitForm();
+    // resetForms();
+
 }
 
 function onListContactsClick(e) {
-    const contactId = getElementById(e.target);
+    const idContact = getElementId(e.target);
 
     switch (true) {
         case (e.target.classList.contains(DELETE_BTN_CLASS)):
-            deleteContact(contactId);
+            deleteContact(idContact);
+            break;
+        case (e.target.classList.contains(EDIT_BTN_CLASS)):
+            fillForm(idContact);
             break;
     }
-
-    console.log(contactId);
 }
 
 function init() {
@@ -74,43 +80,50 @@ function getContactHtml({
 }
 
 function submitForm() {
-    const newContact = getFormData();
+    const contact = getFormData();
 
     if (isInputsInvalid()) {
         return;
     }
-    console.log(newContact);
 
-    createContact(newContact);
+    if (!contact.id) {
+        createContact(contact);
+    } else {
+        editContact(contact);
+    }
+
     resetForms();
 }
 
 function getFormData() {
     return {
-        name: newName.value,
-        phone: newPhone.value,
-        email: newEmail.value,
+        name: nameInput.value,
+        phone: phoneInput.value,
+        email: emailInput.value,
+        id: idInput.value,
     };
 }
 
 function isInputsInvalid() {
     return (
-        newName.value === '' ||
-        newEmail.value === '' ||
-        newPhone.value === ''
+        nameInput.value === '' ||
+        phoneInput.value === '' ||
+        emailInput.value === ''
     );
 }
 
 function resetForms() {
-    newName.value = '';
-    newPhone.value = '';
-    newEmail.value = '';
+    nameInput.value = '';
+    phoneInput.value = '';
+    emailInput.value = '';
 }
 
-function createContact(newContact) {
+function createContact(contact) {
+    delete contact.id;
+
     fetch(CONTACTS_URL, {
             method: 'POST',
-            body: JSON.stringify(newContact),
+            body: JSON.stringify(contact),
             headers: {
                 'Content-type': 'application/json'
             },
@@ -123,7 +136,22 @@ function addContact(contact) {
     renderListContacts(contacts);
 }
 
-function getElementById(elem) {
+function editContact(contact) {
+    fetch(CONTACTS_URL + contact.id, {
+        method: 'PUT',
+        body: JSON.stringify(contact),
+        headers: {
+            'Content-type': 'application/json'
+        },
+    });
+
+    contacts = contacts.map((item) => (item.id != contact.id) ? item : contact);
+
+    renderListContacts(contacts);
+}
+
+
+function getElementId(elem) {
     return elem.closest('.' + LIST_ITEM_CLASS).dataset.id;
 }
 
@@ -134,4 +162,13 @@ function deleteContact(id) {
         contacts = contacts.filter((contact) => contact.id !== id);
         renderListContacts(contacts);
     });
+}
+
+function fillForm(id) {
+    const editedContact = contacts.find((contact) => contact.id === id);
+
+    nameInput.value = editedContact.name;
+    phoneInput.value = editedContact.phone;
+    emailInput.value = editedContact.email;
+    idInput.value = editedContact.id;
 }
